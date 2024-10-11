@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 import supplier_db  # A separate file for in-memory database management
 
 app = Flask(__name__)
+app.config['TEMPLATES_AUTO_RELOAD'] = True  # Add this line to disable caching
 
 @app.route('/')
 def index():
