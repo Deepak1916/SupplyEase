@@ -38,4 +38,5 @@ def edit_supplier(supplier_id):
     return render_template('suppliers.html', supplier=supplier, suppliers=suppliers)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    #app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
