@@ -58,3 +58,4 @@ def delete_supplier(supplier_id):\
     # Delete the supplier from DynamoDB\
     table.delete_item(Key=\{'id': supplier_id\})\
 }
+
