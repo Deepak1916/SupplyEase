@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /home/ec2-user/devops
+cd /home/ec2-user
 #sudo yum install python3 python3-pip -y
 #Install Nginx
 sudo yum install nginx
