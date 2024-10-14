@@ -52,3 +52,4 @@ def update_supplier(supplier_id, name, contact):
 # Delete a supplier
 def delete_supplier(supplier_id):
     table.delete_item(Key={'id': supplier_id})
+
