@@ -9,3 +9,5 @@ pip3 install gunicorn
 #Install Flask
 pip3 install Flask
 #pip3 install -r requirement.txt
+
+pip3 install boto3
