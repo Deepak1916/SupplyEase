@@ -14,7 +14,7 @@ app.secret_key = 'your-secret-key'
 def index():
     return render_template('login.html')
 
-# Register Route
+# Registeration Route
 @app.route('/register', methods=['POST'])
 def register():
     username = request.form['email']
