@@ -10,6 +10,10 @@ app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True 
 app.secret_key = 'your-secret-key'
 
+@app.route('/')
+def index():
+    return render_template('login.html')
+
 # Register Route
 @app.route('/register', methods=['POST'])
 def register():
@@ -56,10 +60,6 @@ def dashboard():
         flash('Please log in to access this page', 'warning')
         return redirect(url_for('login'))
     return f"Welcome, {session['username']}!"
-
-@app.route('/')
-def index():
-    return render_template('login.html')
 
 @app.route('/suppliers', methods=['GET', 'POST'])
 def manage_suppliers():
