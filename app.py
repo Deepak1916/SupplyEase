@@ -1,11 +1,61 @@
 import boto3 # type: ignore
 # Import supplier_db database file created seperatly to handle database actions
 import supplier_db
-from flask import Flask, render_template, request, redirect, url_for, flash
+from supplier_db import users_table
+import bcrypt # type: ignore
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 
 app = Flask(__name__)
 # Add this line to disable caching
 app.config['TEMPLATES_AUTO_RELOAD'] = True 
+app.secret_key = 'your-secret-key'
+
+# Register Route
+@app.route('/register', methods=['POST'])
+def register():
+    username = request.form['email']
+    password = request.form['password'].encode('utf-8')
+    hashed_password = bcrypt.hashpw(password, bcrypt.gensalt())
+
+    # Save user to DynamoDB
+    users_table.put_item(
+        Item={
+            'username': username,
+            'password': hashed_password.decode('utf-8')
+        }
+    )
+    flash('Registration successful!', 'success')
+    return redirect(url_for('login'))
+
+# Login Route
+@app.route('/login', methods=['POST'])
+def login():
+    username = request.form['email']
+    password = request.form['password'].encode('utf-8')
+
+    # Fetch user from DynamoDB
+    response = users_table.get_item(Key={'username': username})
+
+    if 'Item' in response:
+        user = response['Item']
+        if bcrypt.checkpw(password, user['password'].encode('utf-8')):
+            session['username'] = username
+            flash('Login successful!', 'success')
+            return redirect(url_for('dashboard'))
+        else:
+            flash('Invalid password', 'danger')
+    else:
+        flash('User not found', 'danger')
+
+    return redirect(url_for('login'))
+
+# Dashboard Route
+@app.route('/dashboard')
+def dashboard():
+    if 'username' not in session:
+        flash('Please log in to access this page', 'warning')
+        return redirect(url_for('login'))
+    return f"Welcome, {session['username']}!"
 
 @app.route('/')
 def index():

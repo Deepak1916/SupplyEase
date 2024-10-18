@@ -13,6 +13,8 @@ dynamodb = boto3.resource(
 table_name = 'Suppliers'
 table = dynamodb.Table(table_name)
 
+users_table = dynamodb.Table('Users')
+
 # Add a new supplier
 def add_supplier(name, contact):
     response = table.scan()
