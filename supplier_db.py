@@ -1,5 +1,5 @@
-import boto3
-from boto3.dynamodb.conditions import Key
+import boto3 # type: ignore
+from boto3.dynamodb.conditions import Key # type: ignore
 
 # Define the endpoint URL (optional, for custom/local endpoints)
 dynamodb = boto3.resource(
