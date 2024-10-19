@@ -29,7 +29,7 @@ def register():
         }
     )
     flash('Registration successful!', 'success')
-    return redirect(url_for('login'))
+    return redirect(url_for('index'))
 
 # Login Route
 @app.route('/login', methods=['POST'])
