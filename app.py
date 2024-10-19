@@ -32,7 +32,7 @@ def register():
     return redirect(url_for('login'))
 
 # Login Route
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['POST'])
 def login():
     username = request.form['email']
     password = request.form['password'].encode('utf-8')
@@ -53,13 +53,6 @@ def login():
 
     return redirect(url_for('login'))
 
-# Dashboard Route
-@app.route('/dashboard')
-def dashboard():
-    if 'username' not in session:
-        flash('Please log in to access this page', 'warning')
-        return redirect(url_for('login'))
-    return f"Welcome, {session['username']}!"
 
 @app.route('/suppliers', methods=['GET', 'POST'])
 def manage_suppliers():
