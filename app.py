@@ -45,7 +45,7 @@ def login():
         if bcrypt.checkpw(password, user['password'].encode('utf-8')):
             session['username'] = username
             flash('Login successful!', 'success')
-            return redirect(url_for('dashboard'))
+            return redirect(url_for('manage_suppliers'))
         else:
             flash('Invalid password', 'danger')
     else:
