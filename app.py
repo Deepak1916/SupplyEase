@@ -15,7 +15,7 @@ def index():
     return render_template('login.html')
 
 # Registeration Route
-@app.route('/register', methods=['POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     username = request.form['email']
     password = request.form['password'].encode('utf-8')
@@ -32,7 +32,7 @@ def register():
     return redirect(url_for('login'))
 
 # Login Route
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     username = request.form['email']
     password = request.form['password'].encode('utf-8')
