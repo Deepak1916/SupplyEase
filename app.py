@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True 
 app.secret_key = 'your-secret-key'
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def index():
     return render_template('login.html')
 
@@ -51,7 +51,7 @@ def login():
     else:
         flash('User not found', 'danger')
 
-    return redirect(url_for('login'))
+    return redirect(url_for('index'))
 
 
 @app.route('/suppliers', methods=['GET', 'POST'])
