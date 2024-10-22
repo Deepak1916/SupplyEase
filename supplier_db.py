@@ -12,8 +12,23 @@ dynamodb = boto3.resource(
 
 table_name = 'Suppliers'
 table = dynamodb.Table(table_name)
-
 users_table = dynamodb.Table('Users')
+
+# Add New User
+def add_user(username, hashed_password):
+    """Adds a new user to the DynamoDB table."""
+    users_table.put_item(
+        Item={
+            'username': username,
+            'password': hashed_password
+        }
+    )
+
+# Get User s
+def get_user(username):
+    """Fetches a user from the DynamoDB table."""
+    response = users_table.get_item(Key={'username': username})
+    return response.get('Item')
 
 # Add a new supplier
 def add_supplier(name, contact):
