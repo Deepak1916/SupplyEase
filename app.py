@@ -14,47 +14,6 @@ app.secret_key = 'your-secret-key'
 def index():
     return render_template('login.html')
 
-########################### BACKUP #################################
-# Registeration Route
-# @app.route('/register', methods=['GET', 'POST'])
-# def register():
-#     username = request.form['email']
-#     password = request.form['password'].encode('utf-8')
-#     hashed_password = bcrypt.hashpw(password, bcrypt.gensalt())
-
-#     # Save user to DynamoDB
-#     users_table.put_item(
-#         Item={
-#             'username': username,
-#             'password': hashed_password.decode('utf-8')
-#         }
-#     )
-#     flash('Registration successful!', 'success')
-#     return redirect(url_for('index'))
-
-# # Login Route
-# @app.route('/login', methods=['POST'])
-# def login():
-#     username = request.form['email']
-#     password = request.form['password'].encode('utf-8')
-
-#     # Fetch user from DynamoDB
-#     response = users_table.get_item(Key={'username': username})
-
-#     if 'Item' in response:
-#         user = response['Item']
-#         if bcrypt.checkpw(password, user['password'].encode('utf-8')):
-#             session['username'] = username
-#             flash('Login successful!', 'success')
-#             return redirect(url_for('manage_suppliers'))
-#         else:
-#             flash('Invalid password', 'danger')
-#     else:
-#         flash('User not found', 'danger')
-
-#     return redirect(url_for('index'))
-###################################### BACKUP END ###########################################
-
 # Registration Route
 @app.route('/register', methods=['GET', 'POST'])
 def register():

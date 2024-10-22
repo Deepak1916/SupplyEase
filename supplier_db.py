@@ -10,8 +10,9 @@ dynamodb = boto3.resource(
     aws_secret_access_key='dEpuVa/EhjS1XTpGL5+y5FHS/IEXJkX484D27Lk2'  # Optional if not using default credentials
 )
 
-table_name = 'Suppliers'
-table = dynamodb.Table(table_name)
+#table_name = 'Suppliers'
+#table = dynamodb.Table(table_name)
+table = dynamodb.Table('Suppliers')
 users_table = dynamodb.Table('Users')
 
 # Add New User
