@@ -9,7 +9,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 app = Flask(__name__)
 # Add this line to disable caching
 app.config['TEMPLATES_AUTO_RELOAD'] = True 
-app.secret_key = os.getenv('SECRET_KEY')
+app.secret_key = 'your-secret-key'
 
 @app.route('/', methods=['GET'])
 def index():
