@@ -3,12 +3,13 @@ import boto3 # type: ignore
 import supplier_db
 from supplier_db import add_user, get_user
 import bcrypt # type: ignore
+import os
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 
 app = Flask(__name__)
 # Add this line to disable caching
 app.config['TEMPLATES_AUTO_RELOAD'] = True 
-app.secret_key = 'your-secret-key'
+app.secret_key = os.getenv('SECRET_KEY')
 
 @app.route('/', methods=['GET'])
 def index():
