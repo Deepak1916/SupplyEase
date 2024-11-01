@@ -10,7 +10,6 @@ from config import SECRET_KEY
 app = Flask(__name__)
 # Add this line to disable caching
 app.config['TEMPLATES_AUTO_RELOAD'] = True 
-#app.secret_key = 'your-secret-key'
 app.secret_key = SECRET_KEY
 
 @app.route('/', methods=['GET'])
