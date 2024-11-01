@@ -1,5 +1,5 @@
 #!/bin/bash
 # Stop any existing Flask app running on the EC2 instance.
 #echo "Stopping existing Flask server..."
-pkill -f "flask run"
+#pkill -f "flask run"
 sudo pkill -f "gunicorn"
