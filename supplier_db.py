@@ -1,15 +1,13 @@
 import boto3 # type: ignore
 from boto3.dynamodb.conditions import Key # type: ignore
 
-session = boto3.Session(profile_name='dpk-terraform-profile')
+#session = boto3.Session(profile_name='dpk-terraform-profile')
 
 # Define the endpoint URL (optional, for custom/local endpoints)
 dynamodb = session.resource(
     'dynamodb',
-    endpoint_url='https://dynamodb.us-east-1.amazonaws.com',  # For DynamoDB Local, replace with actual endpoint if needed
-    region_name='us-east-1',  # Optional, specify the AWS region if different from default
-    # aws_access_key_id='AKIAYXWBN233Z7ZZRJUV',  # Optional if not using default credentials
-    # aws_secret_access_key='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'  # Optional if not using default credentials
+    endpoint_url='https://dynamodb.us-east-1.amazonaws.com',
+    region_name='us-east-1',
 )
 
 #table_name = 'Suppliers'
