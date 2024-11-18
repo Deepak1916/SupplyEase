@@ -4,7 +4,7 @@ from boto3.dynamodb.conditions import Key # type: ignore
 #session = boto3.Session(profile_name='dpk-terraform-profile')
 
 # Define the endpoint URL (optional, for custom/local endpoints)
-dynamodb = session.resource(
+dynamodb = boto3.resource(
     'dynamodb',
     endpoint_url='https://dynamodb.us-east-1.amazonaws.com',
     region_name='us-east-1',
