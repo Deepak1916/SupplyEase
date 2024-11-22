@@ -1,0 +1,21 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo "Starting pre-build phase"
+      - echo "Environment setup complete"
+
+  build:
+    commands:
+      - echo "Running SonarQube analysis for application in /home/ec2-user/devops"
+      - sonar-scanner \
+          -Dsonar.projectKey=devops \
+          -Dsonar.sources=/home/ec2-user/devops \
+          -Dsonar.host.url=$SONAR_HOST_URL \
+          -Dsonar.login=$SONAR_TOKEN
+
+artifacts:
+  files:
+    - '**/*'
+  discard-paths: yes
