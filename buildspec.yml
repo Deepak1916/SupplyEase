@@ -1,9 +1,25 @@
 version: 0.2
 
 phases:
+  install:
+    commands:
+      - echo "Installing SonarQube Scanner..."
+      # Download and install SonarQube Scanner
+      - curl -o sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.7.0.2747-linux.zip
+      - unzip sonar-scanner.zip -d /opt/
+      - export PATH=/opt/sonar-scanner-4.7.0.2747-linux/bin:$PATH
+      - echo "SonarQube Scanner installed successfully"
+      # Verify Java installation (required by SonarQube Scanner)
+      - java -version || sudo yum install -y java-11-openjdk
+      - echo "Java setup complete"
+
   pre_build:
     commands:
       - echo "Starting pre-build phase"
+      - echo "Verifying environment variables"
+      # Print environment variables for debugging (optional, remove if sensitive)
+      - echo "SONAR_HOST_URL=$SONAR_HOST_URL"
+      - echo "SONAR_TOKEN=$SONAR_TOKEN"
       - echo "Environment setup complete"
 
   build:
