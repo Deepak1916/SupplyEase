@@ -32,7 +32,7 @@ def get_user(username):
     return response.get('Item')
 
 # Add a new supplier
-def add_supplier(name, contact):
+def add_supplier(name, contact, supply):
     response = table.scan()
     suppliers = response.get('Items', [])
     current_id = len(suppliers) + 1  # Increment ID based on count
@@ -41,7 +41,8 @@ def add_supplier(name, contact):
         Item={
             'id': current_id,
             'name': name,
-            'contact': contact
+            'contact': contact,
+            'supply': supply
         }
     )
 
@@ -56,14 +57,15 @@ def get_supplier(supplier_id):
     return response.get('Item', None)
 
 # Update a supplier
-def update_supplier(supplier_id, name, contact):
+def update_supplier(supplier_id, name, contact, supply):
     table.update_item(
         Key={'id': supplier_id},
-        UpdateExpression="set #n=:name, contact=:contact",
+        UpdateExpression="set #n=:name, contact=:contact, supply=:supply",
         ExpressionAttributeNames={'#n': 'name'},
         ExpressionAttributeValues={
             ':name': name,
-            ':contact': contact
+            ':contact': contact,
+            ':supply': supply
         }
     )
 

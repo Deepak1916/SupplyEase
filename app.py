@@ -55,12 +55,13 @@ def manage_suppliers():
         # Handling form submission to add or update suppliers
         supplier_name = request.form['name']
         supplier_contact = request.form['contact']
+        supplier_supply = request.form['supply']
         supplier_id = request.form.get('id')
 
         if supplier_id:  # If ID is present, update the supplier
-            supplier_db.update_supplier(int(supplier_id), supplier_name, supplier_contact)
+            supplier_db.update_supplier(int(supplier_id), supplier_name, supplier_contact, supplier_supply)
         else:  # Otherwise, create a new supplier
-            supplier_db.add_supplier(supplier_name, supplier_contact)
+            supplier_db.add_supplier(supplier_name, supplier_contact, supplier_supply)
 
         return redirect(url_for('manage_suppliers'))
 
