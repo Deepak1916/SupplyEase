@@ -12,6 +12,7 @@ phases:
       # Verify Java installation (required by SonarQube Scanner)
       - java -version || sudo yum install -y java-11-openjdk
       - echo "Java setup complete"
+      - export SONAR_SCANNER_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED"
 
   pre_build:
     commands:
@@ -24,8 +25,8 @@ phases:
 
   build:
     commands:
-      - echo "Running SonarQube analysis for application in /home/ec2-user/devops"
-      - sonar-scanner -Dsonar.projectKey=devops -Dsonar.sources=. -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN
+      - echo "Running SonarQube analysis for application"
+      - sonar-scanner -Dsonar.projectKey=devops -Dsonar.sources=. -Dsonar.host.url=http://3.237.53.141:9000/ -Dsonar.login=$SONAR_TOKEN
 
 artifacts:
   files:
