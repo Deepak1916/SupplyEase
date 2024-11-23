@@ -10,7 +10,6 @@ dynamodb = session.resource(
     region_name='us-east-1',
 )
 
-#table_name = 'Suppliers'
 #table = dynamodb.Table(table_name)
 table = dynamodb.Table('Suppliers')
 users_table = dynamodb.Table('Users')
