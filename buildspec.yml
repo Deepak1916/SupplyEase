@@ -26,6 +26,7 @@ phases:
       - echo "SONAR_TOKEN=$SONAR_TOKEN"
       - echo "Environment setup complete"
       #- echo "Running tests and generating coverage report"
+      - export PYTHONPATH=$PYTHONPATH:/codebuild/output/*/src
       - pytest tests/ --cov=. --cov-report=xml  # Run tests and generate coverage report
 
   build:
