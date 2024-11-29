@@ -14,7 +14,9 @@ phases:
       - echo "Java setup complete"
       - export SONAR_SCANNER_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED"
       - echo "Installing Python and dependencies"
-      - pip install pytest pytest-cov  # Install pytest and coverage plugin
+      - pip install pytest 
+      - pip install pytest-cov  # Install pytest and coverage plugin
+      - pip install sonar-scanner-cli
 
   pre_build:
     commands:
@@ -25,12 +27,12 @@ phases:
       - echo "SONAR_TOKEN=$SONAR_TOKEN"
       - echo "Environment setup complete"
       #- echo "Running tests and generating coverage report"
-      #- pytest --cov=. --cov-report=xml  # Run tests and generate coverage report
+      - pytest tests/ --cov=. --cov-report=xml  # Run tests and generate coverage report
 
   build:
     commands:
       - echo "Running SonarQube analysis for application"
-      - sonar-scanner -Dsonar.projectKey=devops -Dsonar.sources=. -Dsonar.host.url=http://3.237.53.141:9000/ -Dsonar.login=$SONAR_TOKEN
+      - sonar-scanner -Dsonar.projectKey=devops -Dsonar.sources=. -Dsonar.tests=tests -Dsonar.host.url=http://3.237.53.141:9000/ -Dsonar.login=$SONAR_TOKEN -Dsonar.python.coverage.reportPaths=coverage.xml
 
 artifacts:
   files:
