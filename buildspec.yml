@@ -16,7 +16,6 @@ phases:
       - echo "Installing Python and dependencies"
       - pip install pytest 
       - pip install pytest-cov  # Install pytest and coverage plugin
-      - pip install sonar-scanner-cli
 
   pre_build:
     commands:
