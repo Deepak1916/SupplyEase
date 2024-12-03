@@ -3,7 +3,7 @@ from boto3.dynamodb.conditions import Key # type: ignore
 
 session = boto3.Session(profile_name='dpk-terraform-profile')
 
-# Define the endpoint URL (optional, for custom/local endpoints)
+
 dynamodb = session.resource(
     'dynamodb',
     endpoint_url='https://dynamodb.us-east-1.amazonaws.com',
@@ -71,8 +71,3 @@ def update_supplier(supplier_id, name, contact, supply):
 # Delete a supplier
 def delete_supplier(supplier_id):
     table.delete_item(Key={'id': supplier_id})
-
-
-
-
-
