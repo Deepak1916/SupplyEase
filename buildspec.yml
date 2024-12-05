@@ -12,8 +12,8 @@ phases:
       - export SONAR_SCANNER_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED"
 
       # Verify Java installation (required by SonarQube Scanner)
-       - java -version || sudo yum install -y java-17-openjdk
-       - echo "Java setup complete"
+      - java -version || sudo yum install -y java-17-openjdk
+      - echo "Java setup complete"
 
       # Installing dependencies for the test to run.
       - echo "Installing Python and dependencies"
