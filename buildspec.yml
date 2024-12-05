@@ -13,6 +13,8 @@ phases:
 
       # Verify Java installation (required by SonarQube Scanner)
       - java -version || sudo yum install -y java-17-openjdk
+      - export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+      - export PATH=$JAVA_HOME/bin:$PATH
       - echo "Java setup complete"
 
       # Installing dependencies for the test to run.
