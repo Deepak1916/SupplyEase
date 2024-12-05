@@ -16,9 +16,12 @@ phases:
       # - export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
       # - export PATH=$JAVA_HOME/bin:$PATH
       # - echo "Java setup complete"
-      - sudo yum install java-17-amazon-corretto
-      - sudo yum install java-17-amazon-corretto-devel -y
-      - alternatives --set java /usr/lib/jvm/java-17-amazon-corretto.aarch64/bin/java
+      
+      - apt-get update
+      - apt-get install -y openjdk-17-jdk
+      - export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+      - export PATH=$JAVA_HOME/bin:$PATH
+      - java -version
 
       # Installing dependencies for the test to run.
       - echo "Installing Python and dependencies"
