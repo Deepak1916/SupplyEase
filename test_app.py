@@ -10,6 +10,13 @@ def client():
     with app.test_client() as client:
         yield client
 
+# Patch boto3.Session for all tests
+@pytest.fixture(autouse=True)
+def mock_boto3_session():
+    with patch('supplier_db.boto3.Session') as mock_session:
+        mock_dynamodb = mock_session.return_value.resource.return_value
+        mock_dynamodb.Table.return_value.scan.return_value = {'Items': []}
+        yield mock_session
 
 # Test the index route
 def test_index_route(client):
