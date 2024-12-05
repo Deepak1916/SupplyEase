@@ -16,7 +16,6 @@ phases:
       # - export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
       # - export PATH=$JAVA_HOME/bin:$PATH
       # - echo "Java setup complete"
-      - yum install amazon-corretto-release
       - yum install java-17-amazon-corretto
       - yum install java-17-amazon-corretto-devel -y
       - alternatives --set java /usr/lib/jvm/java-17-amazon-corretto.aarch64/bin/java
