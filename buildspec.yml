@@ -9,10 +9,21 @@ phases:
       - unzip sonar-scanner.zip -d /opt/
       - export PATH=/opt/sonar-scanner-4.7.0.2747-linux/bin:$PATH
       - echo "SonarQube Scanner installed successfully"
-      # Verify Java installation (required by SonarQube Scanner)
-      - java -version || sudo yum install -y java-11-openjdk
-      - echo "Java setup complete"
       - export SONAR_SCANNER_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED"
+
+      # Verify Java installation (required by SonarQube Scanner)
+      # - java -version || sudo yum install -y java-11-openjdk
+      # - echo "Java setup complete"
+      
+       # Install Java 17
+      - echo "Installing Java 17..."
+      - amazon-linux-extras enable corretto17
+      - yum install -y java-17-amazon-corretto
+      - export JAVA_HOME=/usr/lib/jvm/java-17-amazon-corretto
+      - export PATH=$JAVA_HOME/bin:$PATH
+      - java -version
+      - echo "Java 17 setup complete."
+
       # Installing dependencies for the test to run.
       - echo "Installing Python and dependencies"
       - pip install pytest 
