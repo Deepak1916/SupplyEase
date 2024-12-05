@@ -12,17 +12,8 @@ phases:
       - export SONAR_SCANNER_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED"
 
       # Verify Java installation (required by SonarQube Scanner)
-      # - java -version || sudo yum install -y java-11-openjdk
-      # - echo "Java setup complete"
-      
-       # Install Java 17
-      - echo "Installing Java 17..."
-      - amazon-linux-extras enable corretto17
-      - yum install -y java-17-amazon-corretto
-      - export JAVA_HOME=/usr/lib/jvm/java-17-amazon-corretto
-      - export PATH=$JAVA_HOME/bin:$PATH
-      - java -version
-      - echo "Java 17 setup complete."
+       - java -version || sudo yum install -y java-17-openjdk
+       - echo "Java setup complete"
 
       # Installing dependencies for the test to run.
       - echo "Installing Python and dependencies"
