@@ -1,8 +1,7 @@
 #!/bin/bash
+#Chaning to project root directory
 cd /home/ec2-user/devops
-# export FLASK_APP=app.py
-# export FLASK_ENV=development
-#/usr/bin/python3 -m flask run --host=0.0.0.0 --port=5000
+# Running application using Gunicorn in background using Daemon mode.
 /usr/bin/python3 -m  gunicorn -b 0.0.0.0:5000 app:app --daemon
 
 
