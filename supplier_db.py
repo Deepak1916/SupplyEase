@@ -1,15 +1,25 @@
 import boto3 # type: ignore
 from boto3.dynamodb.conditions import Key # type: ignore
 
-session = boto3.Session(profile_name='dpk-terraform-profile')
+# Initialize session dynamically (uses default or environment variables in tests)
+def get_boto3_session():
+    """Return a boto3 session, using the default environment if no profile is provided."""
+    try:
+        return boto3.Session(profile_name='dpk-terraform-profile')
+    except Exception:
+        # Use default session if profile is not found (for testing environments)
+        return boto3.Session()
 
+session = get_boto3_session()
+
+# Initialize DynamoDB resources
 dynamodb = session.resource(
     'dynamodb',
     endpoint_url='https://dynamodb.us-east-1.amazonaws.com',
     region_name='us-east-1',
 )
 
-#table = dynamodb.Table(table_name)
+# Tables
 table = dynamodb.Table('Suppliers')
 users_table = dynamodb.Table('Users')
 

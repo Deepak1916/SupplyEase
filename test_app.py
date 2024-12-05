@@ -16,6 +16,7 @@ def mock_boto3_session():
     with patch('supplier_db.boto3.Session') as mock_session:
         mock_dynamodb = mock_session.return_value.resource.return_value
         mock_dynamodb.Table.return_value.scan.return_value = {'Items': []}
+        mock_dynamodb.Table.return_value.get_item.return_value = {'Item': None}
         yield mock_session
 
 # Test the index route
