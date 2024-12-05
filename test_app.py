@@ -1,6 +1,7 @@
 import pytest
 from app import app
-from unittest.mock import patch
+from unittest.mock import patch, ANY
+import bcrypt
 
 @pytest.fixture
 def client():
@@ -34,17 +35,20 @@ def test_register_user(client):
             'password': 'password123'
         }, follow_redirects=True)
 
-        mock_add_user.assert_called_once_with('test@example.com', pytest.any(str))
+        mock_add_user.assert_called_once_with('test@example.com', ANY)
         assert response.status_code == 200
         assert b'Registration successful!' in response.data
 
 
 # Test login
 def test_login_user(client):
+    # Mock bcrypt hashed password
+    hashed_password = bcrypt.hashpw(b'password123', bcrypt.gensalt()).decode('utf-8')
+
     with patch('supplier_db.get_user') as mock_get_user:
         mock_get_user.return_value = {
             'username': 'test@example.com',
-            'password': '$2b$12$12345hashedpassword'  # Fake hashed password
+            'password': hashed_password  # Correctly hashed password
         }
 
         response = client.post('/login', data={
