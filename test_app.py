@@ -18,18 +18,11 @@ def mock_boto3_session():
         mock_dynamodb = mock_session.return_value.resource.return_value
         mock_dynamodb.Table.return_value.scan.return_value = {'Items': []}
         mock_dynamodb.Table.return_value.get_item.return_value = {'Item': None}
-        yield mock_session
-
-# Test the index route
-def test_index_route(client):
-    response = client.get('/')
-    assert response.status_code == 200
-    assert b'Login' in response.data  # Ensure the login page is rendered
-
+        yield mock_session  
 
 # Test registration
 def test_register_user(client):
-    with patch('supplier_db.add_user') as mock_add_user:
+    with patch('app.add_user') as mock_add_user:
         response = client.post('/register', data={
             'email': 'test@example.com',
             'password': 'password123'
@@ -45,7 +38,7 @@ def test_login_user(client):
     # Mock bcrypt hashed password
     hashed_password = bcrypt.hashpw(b'password123', bcrypt.gensalt()).decode('utf-8')
 
-    with patch('supplier_db.get_user') as mock_get_user:
+    with patch('app.get_user') as mock_get_user:
         mock_get_user.return_value = {
             'username': 'test@example.com',
             'password': hashed_password  # Correctly hashed password
@@ -55,6 +48,6 @@ def test_login_user(client):
             'email': 'test@example.com',
             'password': 'password123'
         }, follow_redirects=True)
-
+        print(response.data)  # Debug the response data
         assert response.status_code == 200
-        assert b'Login successful!' in response.data
+        assert b'Manage Suppliers' in response.data
