@@ -5,21 +5,13 @@ phases:
     commands:
       - echo "Installing SonarQube Scanner..."
       # Download and install SonarQube Scanner in the build environment.
-      #- curl -o sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.7.0.2747-linux.zip
       - curl -o /tmp/sonar-scanner-cli.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
-      #- unzip sonar-scanner.zip -d /opt/
       - unzip /tmp/sonar-scanner-cli.zip -d /opt
-      #- export PATH=/opt/sonar-scanner-4.7.0.2747-linux/bin:$PATH
       - export PATH=/opt/sonar-scanner-5.0.1.3006-linux/bin:$PATH
       - echo "SonarQube Scanner installed successfully"
       - export SONAR_SCANNER_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED"
 
-      # # Verify Java installation (required by SonarQube Scanner)
-      # - java -version || sudo yum install -y java-17-openjdk
-      # - export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
-      # - export PATH=$JAVA_HOME/bin:$PATH
-      # - echo "Java setup complete"
-      
+      # Install Java 17 reuired for SonarScanner
       - apt-get update
       - apt-get install -y openjdk-17-jdk
       - export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
@@ -41,9 +33,8 @@ phases:
       # Print environment variables for debugging.
       - echo "SONAR_TOKEN=$SONAR_TOKEN"
       - echo "Environment setup complete"
-      #- echo "Running tests and generating coverage report"
-      #- export PYTHONPATH=$PYTHONPATH:/codebuild/output/*/src
-      - pytest --cov=./ --cov-report=xml  # Run tests and generate coverage report
+      # Run tests and generate coverage report
+      - pytest --cov=./ --cov-report=xml  
 
   build:
     commands:
