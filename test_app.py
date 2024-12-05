@@ -1,7 +1,7 @@
 import pytest
 from app import app
 from unittest.mock import patch, ANY
-#import bcrypt
+import bcrypt
 
 @pytest.fixture
 def client():
@@ -34,20 +34,20 @@ def test_register_user(client):
 
 
 # Test login
-# def test_login_user(client):
-#     # Mock bcrypt hashed password
-#     hashed_password = bcrypt.hashpw(b'password123', bcrypt.gensalt()).decode('utf-8')
+def test_login_user(client):
+    # Mock bcrypt hashed password
+    hashed_password = bcrypt.hashpw(b'password123', bcrypt.gensalt()).decode('utf-8')
 
-#     with patch('app.get_user') as mock_get_user:
-#         mock_get_user.return_value = {
-#             'username': 'test@example.com',
-#             'password': hashed_password  # Correctly hashed password
-#         }
+    with patch('app.get_user') as mock_get_user:
+        mock_get_user.return_value = {
+            'username': 'test@example.com',
+            'password': hashed_password  # Correctly hashed password
+        }
 
-#         response = client.post('/login', data={
-#             'email': 'test@example.com',
-#             'password': 'password123'
-#         }, follow_redirects=True)
-#         print(response.data)  # Debug the response data
-#         assert response.status_code == 200
-#         assert b'Manage Suppliers' in response.data
+        response = client.post('/login', data={
+            'email': 'test@example.com',
+            'password': 'password123'
+        }, follow_redirects=True)
+        print(response.data)  # Debug the response data
+        assert response.status_code == 200
+        assert b'<h2>Supplier List</h2>' in response.data
