@@ -3,7 +3,6 @@ from boto3.dynamodb.conditions import Key # type: ignore
 
 session = boto3.Session(profile_name='dpk-terraform-profile')
 
-
 dynamodb = session.resource(
     'dynamodb',
     endpoint_url='https://dynamodb.us-east-1.amazonaws.com',

@@ -27,12 +27,12 @@ phases:
       - echo "Environment setup complete"
       #- echo "Running tests and generating coverage report"
       #- export PYTHONPATH=$PYTHONPATH:/codebuild/output/*/src
-      #- pytest tests/ --cov=. --cov-report=xml  # Run tests and generate coverage report
+      - pytest --cov=./ --cov-report=xml  # Run tests and generate coverage report
 
   build:
     commands:
       - echo "Running SonarQube analysis for application"
-      - sonar-scanner -Dsonar.projectKey=devops -Dsonar.sources=. -Dsonar.host.url=http://3.237.53.141:9000/ -Dsonar.login=$SONAR_TOKEN 
+      - sonar-scanner -Dsonar.projectKey=devops -Dsonar.sources=. -Dsonar.host.url=http://3.237.53.141:9000/ -Dsonar.login=$SONAR_TOKEN -Dsonar.python.coverage.reportPaths=coverage.xml
 
 artifacts:
   files:
