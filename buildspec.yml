@@ -5,9 +5,12 @@ phases:
     commands:
       - echo "Installing SonarQube Scanner..."
       # Download and install SonarQube Scanner in the build environment.
-      - curl -o sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.7.0.2747-linux.zip
-      - unzip sonar-scanner.zip -d /opt/
-      - export PATH=/opt/sonar-scanner-4.7.0.2747-linux/bin:$PATH
+      #- curl -o sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.7.0.2747-linux.zip
+      - curl -o /tmp/sonar-scanner-cli.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
+      #- unzip sonar-scanner.zip -d /opt/
+      - unzip /tmp/sonar-scanner-cli.zip -d /opt
+      #- export PATH=/opt/sonar-scanner-4.7.0.2747-linux/bin:$PATH
+      - export PATH=/opt/sonar-scanner-5.0.1.3006-linux/bin:$PATH
       - echo "SonarQube Scanner installed successfully"
       - export SONAR_SCANNER_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED"
 
