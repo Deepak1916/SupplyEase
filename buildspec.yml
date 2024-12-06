@@ -3,21 +3,38 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo "Installing SonarQube Scanner..."
+      # - echo "Installing SonarQube Scanner..."
       # Download and install SonarQube Scanner in the build environment.
-      - curl -o /tmp/sonar-scanner-cli.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
-      - unzip /tmp/sonar-scanner-cli.zip -d /opt
+      # - curl -o /tmp/sonar-scanner-cli.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
+      # - unzip /tmp/sonar-scanner-cli.zip -d /opt
+      # - export PATH=/opt/sonar-scanner-5.0.1.3006-linux/bin:$PATH
+      # - echo "SonarQube Scanner installed successfully"
+      # - export SONAR_SCANNER_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED"
+
+      - if [ ! -f /opt/sonar-scanner/sonar-scanner-5.0.1.3006-linux/bin/sonar-scanner ]; then
+          echo "SonarQube Scanner not found in cache. Downloading...";
+          curl -o /tmp/sonar-scanner-cli.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip;
+          unzip /tmp/sonar-scanner-cli.zip -d /opt;
+          echo "SonarQube Scanner downloaded and cached.";
+        else
+          echo "Using cached SonarQube Scanner.";
+        fi
+
       - export PATH=/opt/sonar-scanner-5.0.1.3006-linux/bin:$PATH
-      - echo "SonarQube Scanner installed successfully"
       - export SONAR_SCANNER_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED"
 
+
       # Install Java 17 reuired for SonarScanner
-      - apt-get update
-      - apt-get install -y openjdk-17-jdk
-      - export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
-      - export PATH=$JAVA_HOME/bin:$PATH
-      - echo "JAVA_HOME=$JAVA_HOME"
-      - echo "PATH=$PATH"
+      # - apt-get update
+      # - apt-get install -y openjdk-17-jdk
+      # - export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+      # - export PATH=$JAVA_HOME/bin:$PATH
+      # - echo "JAVA_HOME=$JAVA_HOME"
+      # - echo "PATH=$PATH"
+      # - java -version
+
+      # Ensure Java is pre-installed
+      - echo "Verifying Java installation"
       - java -version
 
       # Installing dependencies for the test to run.
