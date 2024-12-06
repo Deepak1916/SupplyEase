@@ -11,14 +11,14 @@ phases:
       # - echo "SonarQube Scanner installed successfully"
       # - export SONAR_SCANNER_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED"
 
-      # - if [ ! -f /opt/sonar-scanner-5.0.1.3006-linux/bin/sonar-scanner ]; then
-      #     echo "SonarQube Scanner not found in cache. Downloading...";
-      #     curl -o /tmp/sonar-scanner-cli.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip;
-      #     unzip /tmp/sonar-scanner-cli.zip -d /opt;
-      #     echo "SonarQube Scanner downloaded and cached.";
-      #   else
-      #     echo "Using cached SonarQube Scanner.";
-      #   fi
+      - if [ ! -f /opt/sonar-scanner-5.0.1.3006-linux/bin/sonar-scanner ]; then
+          echo "SonarQube Scanner not found in cache. Downloading...";
+          curl -o /tmp/sonar-scanner-cli.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip;
+          unzip /tmp/sonar-scanner-cli.zip -d /opt;
+          echo "SonarQube Scanner downloaded and cached.";
+        else
+          echo "Using cached SonarQube Scanner.";
+        fi
 
       - export PATH=/opt/sonar-scanner-5.0.1.3006-linux/bin:$PATH
       - export SONAR_SCANNER_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED"
