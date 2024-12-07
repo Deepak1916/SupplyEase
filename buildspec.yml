@@ -3,14 +3,7 @@ version: 0.2
 phases:
   install:
     commands:
-      # - echo "Installing SonarQube Scanner..."
-      # Download and install SonarQube Scanner in the build environment.
-      # - curl -o /tmp/sonar-scanner-cli.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
-      # - unzip /tmp/sonar-scanner-cli.zip -d /opt
-      # - export PATH=/opt/sonar-scanner-5.0.1.3006-linux/bin:$PATH
-      # - echo "SonarQube Scanner installed successfully"
-      # - export SONAR_SCANNER_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED"
-
+      # Download and install SonarQube Scanner is it is not exisited already in the build environment.
       - if [ ! -f /opt/sonar-scanner-5.0.1.3006-linux/bin/sonar-scanner ]; then
           echo "SonarQube Scanner not found in cache. Downloading...";
           curl -o /tmp/sonar-scanner-cli.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip;
@@ -19,21 +12,11 @@ phases:
         else
           echo "Using cached SonarQube Scanner.";
         fi
-
+      #Exports path to variable PATH.
       - export PATH=/opt/sonar-scanner-5.0.1.3006-linux/bin:$PATH
       - export SONAR_SCANNER_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED"
 
-
-      # Install Java 17 reuired for SonarScanner
-      # - apt-get update
-      # - apt-get install -y openjdk-17-jdk
-      # - export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
-      # - export PATH=$JAVA_HOME/bin:$PATH
-      # - echo "JAVA_HOME=$JAVA_HOME"
-      # - echo "PATH=$PATH"
-      # - java -version
-
-      # Ensure Java is pre-installed
+      # Ensure Java is already installed in the environment.
       - echo "Verifying Java installation"
       - java -version
 
@@ -55,6 +38,7 @@ phases:
 
   build:
     commands:
+      # Running sonar scanner command.
       - echo "Running SonarQube analysis for application"
       - sonar-scanner -Dsonar.projectKey=devops-dpk_devops -Dsonar.organization=devops-dpk -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=801388c801f391fa388de6c7872816f11891c3bc -Dsonar.python.coverage.reportPaths=coverage.xml
 

@@ -3,8 +3,6 @@
 # Change to Project root directory.
 cd /home/ec2-user/devops
 
-# sudo yum install python3 python3-pip -y
-
 #Install Nginx
 sudo yum install nginx
 

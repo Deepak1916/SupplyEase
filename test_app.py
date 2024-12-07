@@ -32,7 +32,6 @@ def test_register_user(client):
         assert response.status_code == 200
         assert b'Login' in response.data
 
-
 # Test login
 def test_login_user(client):
     # Mock bcrypt hashed password
