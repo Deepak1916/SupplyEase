@@ -8,8 +8,12 @@ def client():
     """Fixture to set up a test client for Flask."""
     app.config['TESTING'] = True
     app.config['SECRET_KEY'] = "test_key"
+    app.config['WTF_CSRF_ENABLED'] = True
     with app.test_client() as client:
-        yield client
+        # Access CSRF token for testing
+            csrf_token = app.jinja_env.globals['csrf_token']()
+            client.csrf_token = csrf_token
+    yield client
 
 # Patch boto3.Session for all tests
 @pytest.fixture(autouse=True)
@@ -25,7 +29,8 @@ def test_register_user(client):
     with patch('app.add_user') as mock_add_user:
         response = client.post('/register', data={
             'email': 'test@example.com',
-            'password': 'password123'
+            'password': 'password123',
+            'csrf_token': client.csrf_token
         }, follow_redirects=True)
 
         mock_add_user.assert_called_once_with('test@example.com', ANY)
@@ -45,7 +50,8 @@ def test_login_user(client):
 
         response = client.post('/login', data={
             'email': 'test@example.com',
-            'password': 'password123'
+            'password': 'password123',
+            'csrf_token': client.csrf_token
         }, follow_redirects=True)
         print(response.data)  # Debug the response data
         assert response.status_code == 200
@@ -56,7 +62,8 @@ def test_manage_suppliers_post_add(client):
         response = client.post('/suppliers', data={
             'name': 'New Supplier',
             'contact': '98765',
-            'supply': 'New Item'
+            'supply': 'New Item',
+            'csrf_token': client.csrf_token
         }, follow_redirects=True)
 
         mock_add_supplier.assert_called_once_with('New Supplier', '98765', 'New Item')
