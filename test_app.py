@@ -10,6 +10,7 @@ def client():
     app.config['SECRET_KEY'] = "test_key"
     app.config['WTF_CSRF_ENABLED'] = True
     with app.test_client() as client:
+        with app.app_context():
         # Access CSRF token for testing
             csrf_token = app.jinja_env.globals['csrf_token']()
             client.csrf_token = csrf_token
