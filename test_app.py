@@ -50,3 +50,4 @@ def test_login_user(client):
         print(response.data)  # Debug the response data
         assert response.status_code == 200
         assert b'Supplier List' in response.data
+
