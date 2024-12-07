@@ -4,12 +4,16 @@ import supplier_db
 from supplier_db import add_user, get_user
 import bcrypt # type: ignore
 from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask_wtf.csrf import CSRFProtect
 from config import SECRET_KEY
 
 app = Flask(__name__)
 # Add this line to disable caching
 app.config['TEMPLATES_AUTO_RELOAD'] = True 
 app.secret_key = SECRET_KEY
+
+# Enable CSRF protection
+csrf = CSRFProtect(app)
 
 @app.route('/', methods=['GET'])
 def index():

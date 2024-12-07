@@ -30,6 +30,8 @@
                 
                 <!-- Login Form -->
                 <form method="POST" action="{{ url_for('login') }}">
+                    <!-- CSRF Token -->
+                    {{ csrf_token() }}
                     <div class="form-group mt-4">
                         <label for="email">Email address</label>
                         <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
