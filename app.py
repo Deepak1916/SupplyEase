@@ -57,26 +57,27 @@ def login():
         flash('Invalid credentials', 'danger')
         return redirect(url_for('index'))
 
-
-@app.route('/suppliers', methods=['GET', 'POST'])
-def manage_suppliers():
-    if request.method == 'POST':
-        # Handling form submission to add or update suppliers
-        supplier_name = request.form['name']
-        supplier_contact = request.form['contact']
-        supplier_supply = request.form['supply']
-        supplier_id = request.form.get('id')
-
-        if supplier_id:  # If ID is present, update the supplier
-            supplier_db.update_supplier(int(supplier_id), supplier_name, supplier_contact, supplier_supply)
-        else:  # Otherwise, create a new supplier
-            supplier_db.add_supplier(supplier_name, supplier_contact, supplier_supply)
-
-        return redirect(url_for('manage_suppliers'))
-
+@app.route('/suppliers', methods=['GET'])
+def get_suppliers():
     # Fetch all suppliers for display
     suppliers = supplier_db.get_all_suppliers()
     return render_template('suppliers.html', suppliers=suppliers)
+
+@app.route('/suppliers', methods=['POST'])
+def manage_suppliers():
+    # Handling form submission to add or update suppliers
+    supplier_name = request.form['name']
+    supplier_contact = request.form['contact']
+    supplier_supply = request.form['supply']
+    supplier_id = request.form.get('id')
+
+    if supplier_id:  # If ID is present, update the supplier
+        supplier_db.update_supplier(int(supplier_id), supplier_name, supplier_contact, supplier_supply)
+    else:  # Otherwise, create a new supplier
+        supplier_db.add_supplier(supplier_name, supplier_contact, supplier_supply)
+
+    return redirect(url_for('get_suppliers'))
+
 
 @app.route('/delete_supplier/<int:supplier_id>', methods=['POST'])
 def delete_supplier(supplier_id):
