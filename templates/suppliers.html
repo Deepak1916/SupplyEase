@@ -15,6 +15,7 @@
       </nav>
     <div class="container mt-5">
         <form action="{{ url_for('manage_suppliers') }}" method="POST" class="mt-3">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <input type="hidden" name="id" value="{{ supplier.id if supplier else '' }}">
             <div class="form-group">
                 <label for="name">Supplier Name</label>
