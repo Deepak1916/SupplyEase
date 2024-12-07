@@ -82,3 +82,4 @@ def delete_supplier(supplier_id):
     table.delete_item(Key={'id': supplier_id})
 
 
+

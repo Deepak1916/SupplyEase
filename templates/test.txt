@@ -10,7 +10,7 @@
             background-color: #f8f9fa;
         }
         .navbar {
-            background-color: #007bffcf;
+            background-color: #0a5bb2e9;
         }
         .navbar-brand {
             color: #fff !important;
