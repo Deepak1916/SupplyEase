@@ -51,3 +51,13 @@ def test_login_user(client):
         assert response.status_code == 200
         assert b'Supplier List' in response.data
 
+def test_manage_suppliers_post_add(client):
+    with patch('supplier_db.add_supplier') as mock_add_supplier:
+        response = client.post('/suppliers', data={
+            'name': 'New Supplier',
+            'contact': '98765',
+            'supply': 'New Item'
+        }, follow_redirects=True)
+
+        mock_add_supplier.assert_called_once_with('New Supplier', '98765', 'New Item')
+        assert response.status_code == 200
