@@ -19,8 +19,13 @@ csrf = CSRFProtect(app)
 def index():
     return render_template('login.html')
 
+# Route for rendering the registration form
+@app.route('/register', methods=['GET'])
+def show_register_form():
+    return redirect(url_for('index'))
+
 # Registration Route
-@app.route('/register', methods=['GET', 'POST'])
+@app.route('/register', methods=['POST'])
 def register():
     if request.method == 'POST':
         username = request.form['email']
@@ -33,7 +38,7 @@ def register():
         flash('Registration successful!', 'success')
         return redirect(url_for('index'))
 
-    return render_template('register.html')
+    return redirect(url_for('index'))
 
 # Login Route
 @app.route('/login', methods=['POST'])
