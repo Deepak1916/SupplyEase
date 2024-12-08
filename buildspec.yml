@@ -22,10 +22,10 @@ phases:
 
       # Installing dependencies for the test to run.
       - echo "Installing Python and dependencies"
-      - pip install flask-wtf
-      - pip install pytest 
-      - pip install pytest-cov 
-      - pip install bcrypt
+      - pip install flask-wtf pytest pytest-cov bcrypt pytest-xdist
+      #- pip install pytest 
+      #- pip install pytest-cov 
+      #- pip install bcrypt
 
   pre_build:
     commands:
@@ -35,7 +35,7 @@ phases:
       - echo "SONAR_TOKEN=$SONAR_TOKEN"
       - echo "Environment setup complete"
       # Run tests and generate coverage report
-      - pytest --cov=./ --cov-report=xml  
+      - pytest --cov=./ --cov-report=xml -n auto
 
   build:
     commands:
