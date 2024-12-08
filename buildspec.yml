@@ -8,9 +8,11 @@ phases:
           echo "SonarQube Scanner not found in cache. Downloading...";
           curl -o /tmp/sonar-scanner-cli.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip;
           unzip /tmp/sonar-scanner-cli.zip -d /opt;
+          sudo chmod -R 755 /opt/sonar-scanner-5.0.1.3006-linux;
           echo "SonarQube Scanner downloaded and cached.";
         else
           echo "Using cached SonarQube Scanner.";
+          ls -la /opt/sonar-scanner-5.0.1.3006-linux/bin/;
         fi
       #Exports path to variable PATH.
       - export PATH=/opt/sonar-scanner-5.0.1.3006-linux/bin:$PATH
@@ -23,9 +25,6 @@ phases:
       # Installing dependencies for the test to run.
       - echo "Installing Python and dependencies"
       - pip install flask-wtf pytest pytest-cov bcrypt pytest-xdist
-      #- pip install pytest 
-      #- pip install pytest-cov 
-      #- pip install bcrypt
 
   pre_build:
     commands:
