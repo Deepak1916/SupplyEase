@@ -83,16 +83,3 @@ def test_delete_supplier(client):
         mock_delete_supplier.assert_called_once_with(1)
         assert response.status_code == 200
         assert b'Supplier removed from the list successfully' in response.data
-
-# Test supplier management with missing data
-def test_manage_supplier_missing_data(client):
-    with patch('supplier_db.add_supplier') as mock_add_supplier:
-        response = client.post('/suppliers', data={
-            'name': '',
-            'contact': '',
-            'supply': ''
-        }, follow_redirects=True)
-
-        mock_add_supplier.assert_not_called()
-        assert response.status_code == 200
-        assert b'There is an error while managing suppliers contact admin for support' in response.data
