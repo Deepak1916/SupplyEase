@@ -74,3 +74,12 @@ def test_update_supplier(client):
         mock_update_supplier.assert_called_once_with(1, 'Updated Supplier', '54321', 'Item B')
         assert response.status_code == 200
         assert b'Supplier details updated successfully' in response.data
+
+# Test deleting a supplier
+def test_delete_supplier(client):
+    with patch('supplier_db.delete_supplier') as mock_delete_supplier:
+        response = client.post('/delete_supplier/1', follow_redirects=True)
+
+        mock_delete_supplier.assert_called_once_with(1)
+        assert response.status_code == 200
+        assert b'Supplier removed from the list successfully' in response.data
