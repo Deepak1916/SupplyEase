@@ -59,6 +59,5 @@ def test_manage_suppliers_post_add(client):
             'contact': '98765',
             'supply': 'New Item'
         }, follow_redirects=True)
-
         mock_add_supplier.assert_called_once_with('New Supplier', '98765', 'New Item')
         assert response.status_code == 200
