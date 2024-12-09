@@ -29,7 +29,7 @@ def test_register_user(client):
             'password': 'password123'
         }, follow_redirects=True)
 
-        mock_add_user.assert_called_once_with('test@example.com', ANY)
+        mock_add_user.assert_called_once_with('test@example.com', ANY) 
         assert response.status_code == 200
         assert b'Login' in response.data
 
@@ -43,7 +43,6 @@ def test_login_user(client):
             'username': 'test@example.com',
             'password': hashed_password  # Correctly hashed password
         }
-
         response = client.post('/login', data={
             'email': 'test@example.com',
             'password': 'password123'
@@ -61,3 +60,17 @@ def test_manage_suppliers_post_add(client):
         }, follow_redirects=True)
         mock_add_supplier.assert_called_once_with('New Supplier', '98765', 'New Item')
         assert response.status_code == 200
+
+# Test updating a supplier
+def test_update_supplier(client):
+    with patch('supplier_db.update_supplier') as mock_update_supplier:
+        response = client.post('/suppliers', data={
+            'id': '1',
+            'name': 'Updated Supplier',
+            'contact': '54321',
+            'supply': 'Item B'
+        }, follow_redirects=True)
+
+        mock_update_supplier.assert_called_once_with(1, 'Updated Supplier', '54321', 'Item B')
+        assert response.status_code == 200
+        assert b'Supplier details updated successfully' in response.data
