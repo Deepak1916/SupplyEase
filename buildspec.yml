@@ -40,7 +40,7 @@ phases:
     commands:
       # Running sonar scanner command.
       - echo "Running SonarQube analysis for application"
-      - sonar-scanner -Dsonar.projectKey=devops-dpk_devops -Dsonar.organization=devops-dpk -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=801388c801f391fa388de6c7872816f11891c3bc -Dsonar.python.coverage.reportPaths=coverage.xml
+      - sonar-scanner -Dsonar.projectKey=devops-dpk_devops -Dsonar.organization=devops-dpk -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=<sonarcloud-login-token> -Dsonar.python.coverage.reportPaths=coverage.xml
 
 artifacts:
   files:
